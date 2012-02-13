@@ -1,0 +1,3 @@
+ciudad_cambiar:
+    pattern: /ciudad/cambiar-a-{ciudad}
+    defaults: { _controller: CiudadBundle:Default:cambiar }

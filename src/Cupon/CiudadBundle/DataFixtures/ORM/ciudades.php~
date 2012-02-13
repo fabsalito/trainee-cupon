@@ -1,0 +1,29 @@
+<?php
+namespace Cupon\CiudadBundle\DataFixtures\ORM;
+
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\FixtureInterface;
+use Cupon\CiudadBundle\Entity\Ciudad;
+
+class ciudades implements FixtureInterface
+{
+    function load(ObjectManager $manager)
+    {
+   
+        $ciudades = array(
+            array('nombre' => 'Madrid'),
+            array('nombre' => 'Barcelona'),
+            array('nombre' => 'Valencia'),
+            // ...
+        );
+        
+        foreach ($ciudades as $ciudad) {
+            $entidad = new Ciudad();
+            $entidad->setNombre($ciudad['nombre']);
+        
+            $manager->persist($entidad);
+        }
+        
+        $manager->flush();
+    }
+}

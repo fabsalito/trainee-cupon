@@ -1,0 +1,20 @@
+UsuarioBundle:
+    resource: "@UsuarioBundle/Resources/config/routing.yml"
+    prefix:   /
+
+TiendaBundle:
+    resource: "@TiendaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+CiudadBundle:
+    resource: "@CiudadBundle/Resources/config/routing.yml"
+    prefix:   /
+
+OfertaBundle:
+    resource: "@OfertaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal
