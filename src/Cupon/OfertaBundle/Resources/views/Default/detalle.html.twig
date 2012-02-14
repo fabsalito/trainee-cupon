@@ -1,0 +1,13 @@
+{% extends '::frontend.html.twig' %}
+
+{% block title %}Detalles de {{ oferta.nombre }}{% endblock %}
+
+{% block id 'oferta' %}
+
+{% block article %}
+    {% include 'OfertaBundle:Default:includes/oferta.html.twig' %}
+{% endblock %}
+
+{% block aside %}
+    {# ... #}
+{% endblock %}

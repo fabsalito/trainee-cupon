@@ -15,3 +15,8 @@ portada:
 _portada:
     pattern: /
     defaults: { _controller: OfertaBundle:Default:portada }
+
+# Ruta del detalle de oferta
+oferta:
+    pattern: /{ciudad}/ofertas/{slug}
+    defaults: { _controller: OfertaBundle:Default:oferta }

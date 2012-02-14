@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityRepository;
 
 class OfertaRepository extends EntityRepository
 {
+    // busca la oferta del día para $ciudad
     public function findOfertaDelDia($ciudad)
     {
         // obtiene entity manager
@@ -33,6 +34,28 @@ class OfertaRepository extends EntityRepository
         // setea el número de resultados
         $consulta->setMaxResults(1);
         
+        return $consulta->getSingleResult();
+    }
+    
+    // busca oferta especificada por $ciudad y $slug
+    public function findOferta($ciudad, $slug)
+    {
+        // obtiene entity manager
+        $em = $this->getEntityManager();
+        
+        // define consulta
+        $consulta = $em->createQuery('SELECT o, c, t FROM OfertaBundle:Oferta
+            o JOIN o.ciudad c JOIN o.tienda t WHERE o.revisada = true AND o.slug = :slug
+            AND c.slug = :ciudad');
+        
+        // define parámetros
+        $consulta->setParameter('slug', $slug);
+        $consulta->setParameter('ciudad', $ciudad);
+        
+        // realiza consulta
+        $consulta->setMaxResults(1);
+        
+        // devuelve oferta
         return $consulta->getSingleResult();
     }
 }

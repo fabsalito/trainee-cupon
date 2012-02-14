@@ -40,4 +40,19 @@ class DefaultController extends Controller
             array('oferta' => $oferta)
         );
     }
+    
+    // procesa el detalle de la oferta
+    public function ofertaAction($ciudad, $slug)
+    {
+        // obtiene entity manager
+        $em = $this->getDoctrine()->getEntityManager();
+
+        // obtiene la oferta especificada por $ciudad y $slug
+        $oferta = $em->getRepository('OfertaBundle:Oferta')->findOferta($ciudad, $slug);
+
+        // renderiza el detalle de la oferta
+        return $this->render('OfertaBundle:Default:detalle.html.twig', array(
+            'oferta' => $oferta
+            ));
+    }
 }
