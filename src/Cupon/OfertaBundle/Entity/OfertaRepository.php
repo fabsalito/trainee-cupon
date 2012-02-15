@@ -44,9 +44,13 @@ class OfertaRepository extends EntityRepository
         $em = $this->getEntityManager();
         
         // define consulta
-        $consulta = $em->createQuery('SELECT o, c, t FROM OfertaBundle:Oferta
-            o JOIN o.ciudad c JOIN o.tienda t WHERE o.revisada = true AND o.slug = :slug
-            AND c.slug = :ciudad');
+        $consulta = $em->createQuery('SELECT o, c, t 
+                                      FROM OfertaBundle:Oferta o 
+                                      JOIN o.ciudad c 
+                                      JOIN o.tienda t 
+                                      WHERE o.revisada = true 
+                                      AND o.slug = :slug
+                                      AND c.slug = :ciudad');
         
         // define parámetros
         $consulta->setParameter('slug', $slug);
@@ -57,5 +61,31 @@ class OfertaRepository extends EntityRepository
         
         // devuelve oferta
         return $consulta->getSingleResult();
+    }
+    
+    // busca las ofertas relacionadas a las ciudad
+    public function findRelacionadas($ciudad)
+    {
+        // obtiene entity manager
+        $em = $this->getEntityManager();
+        
+        // define consulta
+        $consulta = $em->createQuery('SELECT o, c 
+                                     FROM OfertaBundle:Oferta o
+                                     JOIN o.ciudad c 
+                                     WHERE o.revisada = true 
+                                     AND o.fecha_publicacion <= :fecha 
+                                     AND c.slug != :ciudad 
+                                     ORDER BY o.fecha_publicacion DESC');
+        
+        // define parámetros
+        $consulta->setParameter('ciudad', $ciudad);
+        $consulta->setParameter('fecha', new \DateTime('today'));
+        
+        // realiza consulta
+        $consulta->setMaxResults(5);
+        
+        // devuelve oferta
+        return $consulta->getResult();
     }
 }

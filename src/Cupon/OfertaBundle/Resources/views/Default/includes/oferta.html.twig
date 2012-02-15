@@ -1,6 +1,6 @@
 <section class="descripcion">
     <h1><a href="{{ path('oferta', { 'ciudad': oferta.ciudad.slug, 'slug' :oferta.slug }) }}">{{ oferta.nombre }}</a></h1>
-    {{ oferta.descripcion }}
+    {{ oferta.descripcion | mostrar_como_lista }}
     <a class="boton" href="#">Comprar</a>
 </section>
 
@@ -12,7 +12,7 @@
 
 <section class="estado">
     <div class="tiempo">
-        <strong>Faltan</strong>: {{ oferta.fechaExpiracion | date() }}
+        <strong>Faltan</strong>: {{ oferta.fechaExpiracion | cuenta_atras }}
     </div>
     
     <div class="compras">

@@ -49,10 +49,14 @@ class DefaultController extends Controller
 
         // obtiene la oferta especificada por $ciudad y $slug
         $oferta = $em->getRepository('OfertaBundle:Oferta')->findOferta($ciudad, $slug);
+        
+        // obtiene las ofertas relacionadas
+        $relacionadas = $em->getRepository('OfertaBundle:Oferta')->findRelacionadas($ciudad);
 
         // renderiza el detalle de la oferta
         return $this->render('OfertaBundle:Default:detalle.html.twig', array(
-            'oferta' => $oferta
+            'oferta' => $oferta,
+            'relacionadas' => $relacionadas
             ));
     }
 }
