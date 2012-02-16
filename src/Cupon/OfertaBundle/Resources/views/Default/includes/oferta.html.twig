@@ -32,7 +32,7 @@
 <section class="direccion">
     <h2>Disfruta de la oferta en</h2>
     <p>
-        <a href="#">{{ oferta.tienda.nombre }}</a>
+        <a href="{{ path('tienda_portada', { 'ciudad':oferta.ciudad.slug , 'tienda':oferta.tienda.slug }) }}">{{ oferta.tienda.nombre }}</a>
         {{ oferta.tienda.direccion }}
     </p>
 </section>

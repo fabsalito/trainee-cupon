@@ -1,0 +1,51 @@
+{% extends '::frontend.html.twig' %}
+
+{% block title %}Tienda {{ tienda.nombre }}{% endblock %}
+
+{% block id 'tienda' %}
+
+{% block article %}
+    <section id="descripcion">
+        <h1>{{ tienda.nombre }}</h1>
+        <p>{{ tienda.descripcion }}</p>
+    </section>
+
+    <section id="ultimas">
+        <h2>Últimas ofertas publicadas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Oferta</th>
+                    <th>Precio</th>
+                    <th>Descuento</th>
+                    <th>Compras</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for oferta in ofertas %}
+                <tr>
+                    <td>{{ oferta.fechaPublicacion | date() }}</td>
+                    <td><a href="{{ path('oferta', { 'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">{{ oferta.nombre }}</a></td>
+                    <td>{{ oferta.precio }} &euro;</td>
+                    <td>{{ oferta.compras }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}
+
+{% block aside %}
+    {{ parent() }}
+    
+    <section id="cercanas">
+        <h2>Otras tiendas en {{ tienda.ciudad.nombre }}</h2>
+        <ul>
+            {% for tienda in cercanas %}
+            <li><a href="{{ path('tienda_portada', {'ciudad':tienda.ciudad.slug, 'tienda': tienda.slug}) }}">{{ tienda.nombre }}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

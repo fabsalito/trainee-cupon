@@ -8,6 +8,32 @@ use Doctrine\ORM\EntityRepository;
 
 class OfertaRepository extends EntityRepository
 {
+    // ofertas recientes
+    public function findRecientes($ciudad_id)
+    {
+        // obtiene entity manager
+        $em = $this->getEntityManager();
+        
+        // arma consulta
+        $consulta = $em->createQuery('SELECT o, t 
+                                      FROM OfertaBundle:Oferta o
+                                      JOIN o.tienda t 
+                                      WHERE o.revisada = true 
+                                      AND o.fecha_publicacion < :fecha 
+                                      AND o.ciudad = :id 
+                                      ORDER BY o.fecha_publicacion DESC');
+                                      
+        // define la cantidad de resultados
+        $consulta->setMaxResults(5);
+        
+        // define valor para parámetros
+        $consulta->setParameter('id', $ciudad_id);
+        $consulta->setParameter('fecha', new \DateTime('today'));
+        
+        // retorna resultados
+        return $consulta->getResult();
+    }
+
     // busca la oferta del día para $ciudad
     public function findOfertaDelDia($ciudad)
     {

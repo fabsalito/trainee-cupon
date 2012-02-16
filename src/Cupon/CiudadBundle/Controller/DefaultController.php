@@ -34,4 +34,29 @@ class DefaultController extends Controller
                 )
             );
     }
+    
+    // devuelve la página de ofertas recientes
+    public function recientesAction($ciudad)
+    {
+        // obtiene el entity manager
+        $em = $this->getDoctrine()->getEntityManager();
+
+        // obtiene ciudad
+        $ciudad = $em->getRepository('CiudadBundle:Ciudad')->findOneBySlug($ciudad);
+        
+        // obtiene cercanas
+        $cercanas = $em->getRepository('CiudadBundle:Ciudad')->findCercanas($ciudad->getId());
+
+        // obtiene ofertas recientes
+        $ofertas = $em->getRepository('OfertaBundle:Oferta')->findRecientes($ciudad->getId());
+        
+        // retorna respuesta
+        return $this->render(
+            'CiudadBundle:Default:recientes.html.twig',
+            array('ciudad' => $ciudad,
+                'cercanas' => $cercanas,
+                'ofertas' => $ofertas,
+                )
+            );
+    }
 }

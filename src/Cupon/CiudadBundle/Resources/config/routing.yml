@@ -1,3 +1,7 @@
 ciudad_cambiar:
     pattern: /ciudad/cambiar-a-{ciudad}
     defaults: { _controller: CiudadBundle:Default:cambiar }
+    
+ciudad_recientes:
+    pattern: /{ciudad}/recientes
+    defaults: { _controller: CiudadBundle:Default:recientes }
