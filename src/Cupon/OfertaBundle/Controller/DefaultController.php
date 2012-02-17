@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-//use Cupon\OfertaBundle\Entity\OfertaRepository;
 
 class DefaultController extends Controller
 {
@@ -49,6 +48,11 @@ class DefaultController extends Controller
 
         // obtiene la oferta especificada por $ciudad y $slug
         $oferta = $em->getRepository('OfertaBundle:Oferta')->findOferta($ciudad, $slug);
+        
+        // lanza excepción en caso de que no exista la oferta
+        if (!$oferta) {
+            throw $this->createNotFoundException('No existe la oferta');
+        }
         
         // obtiene las ofertas relacionadas
         $relacionadas = $em->getRepository('OfertaBundle:Oferta')->findRelacionadas($ciudad);

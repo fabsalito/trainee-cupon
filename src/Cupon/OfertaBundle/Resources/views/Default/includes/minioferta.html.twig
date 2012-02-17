@@ -1,16 +1,25 @@
+{% set expirada = oferta.fechaExpiracion|date('YmdHis') < 'now'|date('YmdHis') %}
+
 <section class="oferta mini">
     <div class="descripcion">
         <h2><a href="{{ path('oferta', { 'ciudad': oferta.ciudad.slug, 'slug':oferta.slug }) }}">{{ oferta.nombre }}</a></h2>
         {{ oferta.descripcion | mostrar_como_lista }}
-        <a class="boton" href="#">Comprar</a>
         
-        <div class="estado">
-            <strong>Faltan</strong>: {{ oferta.fechaExpiracion | cuenta_atras }}
+        {% if not expirada %}
+            <a class="boton" href="#">Comprar</a>
+        {% endif %}
+        
+        <div class="estado {{ expirada ? 'expirada' : '' }}">
+            {% if not expirada %}
+                <strong>Faltan</strong>: {{ oferta.fechaExpiracion | cuenta_atras }}
+            {% else %}
+                Finalizada el {{ oferta.fechaExpiracion | date() }}
+            {% endif %}
         </div>
     </div>
 
     <div class="galeria">
-        <img alt="Fotografía de la oferta" src="{{ asset('uploads/images/' ~oferta.foto) }}">
+        <img alt="Fotografía de la oferta" src="{{ asset(directorio_imagenes ~ oferta.foto) }}">
         <p class="precio">{{ oferta.precio }} &euro; </p>
         <p>Disfruta de esta oferta en <a href="#">{{ oferta.tienda.nombre }}</a></p>
     </div>

@@ -24,12 +24,16 @@
             </thead>
             <tbody>
                 {% for oferta in ofertas %}
-                <tr>
-                    <td>{{ oferta.fechaPublicacion | date() }}</td>
-                    <td><a href="{{ path('oferta', { 'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">{{ oferta.nombre }}</a></td>
-                    <td>{{ oferta.precio }} &euro;</td>
-                    <td>{{ oferta.compras }}</td>
-                </tr>
+                    <tr>
+                        <td>{{ oferta.fechaPublicacion | date() }}</td>
+                        <td><a href="{{ path('oferta', { 'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">{{ oferta.nombre }}</a></td>
+                        <td>{{ oferta.precio }} &euro;</td>
+                        <td>{{ oferta.compras }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">Esta tienda no ha publicado ninguna oferta</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>

@@ -2,6 +2,8 @@
 
 {% extends '::base.html.twig' %}
 
+{% set ciudadSeleccionada = app.request.attributes.has('ciudad')? app.request.attributes.get('ciudad'): ciudad_por_defecto %}
+
 {% block stylesheets %}
     <link href="{{ asset('bundles/oferta/css/normalizar.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('bundles/oferta/css/comun.css') }}" rel="stylesheet" type="text/css" />
@@ -9,8 +11,6 @@
 {% endblock %}
 
 {% block javascripts %}{% endblock %}
-
-{% set ciudadSeleccionada = app.request.attributes.has('ciudad')? app.request.attributes.get('ciudad'): ciudad_por_defecto %}
 
 {% block body %}
     <header>

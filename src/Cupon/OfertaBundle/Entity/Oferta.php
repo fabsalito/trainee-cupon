@@ -63,6 +63,11 @@ class Oferta
      * @ORM\Column(name="precio", type="decimal")
      */
     private $precio;
+    
+    /**
+    * @ORM\Column(type="decimal", scale=2)
+    */
+    protected $descuento;
 
     /**
      * @var datetime $fecha_publicacion

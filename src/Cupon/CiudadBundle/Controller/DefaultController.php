@@ -44,6 +44,11 @@ class DefaultController extends Controller
         // obtiene ciudad
         $ciudad = $em->getRepository('CiudadBundle:Ciudad')->findOneBySlug($ciudad);
         
+        // lanza excepción en caso de que no exista la ciudad
+        if (!$ciudad) {
+            throw $this->createNotFoundException('No existe la ciudad');
+        }
+        
         // obtiene cercanas
         $cercanas = $em->getRepository('CiudadBundle:Ciudad')->findCercanas($ciudad->getId());
 

@@ -1,16 +1,22 @@
+{% set expirada=oferta.fechaExpiracion|date('YmdHis') < 'now'|date('YmdHis') %}
+
 <section class="descripcion">
     <h1><a href="{{ path('oferta', { 'ciudad': oferta.ciudad.slug, 'slug' :oferta.slug }) }}">{{ oferta.nombre }}</a></h1>
     {{ oferta.descripcion | mostrar_como_lista }}
-    <a class="boton" href="#">Comprar</a>
+    
+    {% if not expirada %}
+        <a class="boton" href="#">Comprar</a>
+    {% endif %}
 </section>
 
 <section class="galeria">
-    <img alt="..." src="{{ asset('uploads/images/' ~ oferta.foto) }}">
+    <img alt="..." src="{{ asset(directorio_imagenes ~ oferta.foto) }}">
     <p class="precio">{{ oferta.precio }} &euro;</p>
     <p><strong>Condiciones:</strong> {{ oferta.condiciones }}</p>
 </section>
 
-<section class="estado">
+<section class="estado {{ expirada ? 'expirada' : '' }}">
+{% if not expirada %}
     <div class="tiempo">
         <strong>Faltan</strong>: {{ oferta.fechaExpiracion | cuenta_atras }}
     </div>
@@ -27,6 +33,15 @@
             <strong>Oferta activada</strong> por superar las <strong>{{oferta.umbral }}</strong> compras necesarias
         {% endif %}
     </div>
+{% else %}
+    <div class="tiempo">
+        <strong>Finalizada</strong> el {{ oferta.fechaExpiracion | date() }}
+    </div>
+    
+    <div class="compras">
+        <strong>Compras</strong>: {{ oferta.compras }}
+    </div>
+{% endif %}
 </section>
 
 <section class="direccion">
