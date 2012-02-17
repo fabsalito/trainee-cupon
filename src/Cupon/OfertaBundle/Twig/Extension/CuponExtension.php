@@ -33,15 +33,18 @@ class CuponExtension extends \Twig_Extension
         ));
         
         $idAleatorio = 'cuenta-atras-'.rand(1, 100000);
+        
         $html = <<<EOJ
-<span id="$idAleatorio"></span>
-<script type="text/javascript">
-window.addEventListener('load', function(){
-var expira = $fecha;
-muestraCuentaAtras('$idAleatorio', expira);
-});
-</script>
+            <span id="$idAleatorio"></span>
+            
+            <script type="text/javascript">
+                window.addEventListener('load', function(){
+                    var expira = $fecha;
+                    muestraCuentaAtras('$idAleatorio', expira);
+                });
+            </script>
 EOJ;
+
         return $html;
     }
     

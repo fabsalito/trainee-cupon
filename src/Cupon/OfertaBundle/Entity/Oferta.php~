@@ -387,24 +387,4 @@ class Oferta
     {
         return $this->getNombre();
     }
-
-    /**
-     * Set descuento
-     *
-     * @param decimal $descuento
-     */
-    public function setDescuento($descuento)
-    {
-        $this->descuento = $descuento;
-    }
-
-    /**
-     * Get descuento
-     *
-     * @return decimal 
-     */
-    public function getDescuento()
-    {
-        return $this->descuento;
-    }
 }

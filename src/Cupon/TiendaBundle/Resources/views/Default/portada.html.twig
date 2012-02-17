@@ -28,6 +28,7 @@
                         <td>{{ oferta.fechaPublicacion | date() }}</td>
                         <td><a href="{{ path('oferta', { 'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">{{ oferta.nombre }}</a></td>
                         <td>{{ oferta.precio }} &euro;</td>
+                        <td>{{ oferta.descuento }} &euro;</td>
                         <td>{{ oferta.compras }}</td>
                     </tr>
                 {% else %}

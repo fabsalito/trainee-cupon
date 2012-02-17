@@ -65,7 +65,7 @@ class Ofertas extends AbstractFixture implements OrderedFixtureInterface, Contai
                 $oferta->setCondiciones($this->getCondiciones());
                 $oferta->setFoto('foto'.rand(1,20).'.jpg');
                 $oferta->setPrecio(number_format(rand(100, 10000)/100, 2));
-                //$oferta->setDescuento($oferta->getPrecio() * (rand(10, 70)/100));
+                $oferta->setDescuento($oferta->getPrecio() * (rand(10, 70)/100));
                 
                 // Una oferta se publica hoy, el resto se reparte entre el pasado y el futuro
                 if ($j < 10) {
