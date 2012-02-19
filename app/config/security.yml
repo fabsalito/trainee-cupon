@@ -1,6 +1,6 @@
 security:
-    #acl:
-    #    connection: default
+    acl:
+        connection: default
         
     encoders:
         #Cupon\UsuarioBundle\Entity\Usuario: { algorithm: sha512, iterations: 10 }

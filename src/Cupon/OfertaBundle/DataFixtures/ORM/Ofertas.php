@@ -103,7 +103,7 @@ class Ofertas extends AbstractFixture implements OrderedFixtureInterface, Contai
                 
                 // Otorgar el permiso adecuado a cada oferta utilizando la ACL
                 
-                /* // Obtener la identidad del objeto oferta y del usuario
+                // Obtener la identidad del objeto oferta y del usuario
                 $idObjeto  = ObjectIdentity::fromDomainObject($oferta);
                 $idUsuario = UserSecurityIdentity::fromAccount($tienda);
                 
@@ -124,7 +124,7 @@ class Ofertas extends AbstractFixture implements OrderedFixtureInterface, Contai
                 }
                 
                 $acl->insertObjectAce($idUsuario, MaskBuilder::MASK_OPERATOR);
-                $proveedor->updateAcl($acl); */
+                $proveedor->updateAcl($acl); 
             }
         }
     }
