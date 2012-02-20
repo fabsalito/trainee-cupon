@@ -1,14 +1,15 @@
 security:
-    #acl:
-    #    connection: default
+    acl:
+        connection: default
         
     encoders:
         #Cupon\UsuarioBundle\Entity\Usuario: { algorithm: sha512, iterations:10 }
-        #Cupon\UsuarioBundle\Entity\Usuario: plaintext
-        Cupon\UsuarioBundle\Entity\Usuario:
-            algorithm: sha512
-            encode-as-base64: true
-            iterations: 10
+        Cupon\UsuarioBundle\Entity\Usuario: plaintext
+        Symfony\Component\Security\Core\User\User: plaintext
+        #Cupon\UsuarioBundle\Entity\Usuario:
+        #    algorithm: sha512
+        #    encode-as-base64: true
+        #    iterations: 10
         #Symfony\Component\Security\Core\User\User:
         #    algorithm: sha512
         #    encode-as-base64: true
@@ -16,15 +17,16 @@ security:
 
     providers:
         usuarios:
-            entity: { class: Cupon\UsuarioBundle\Entity\Usuario, property:email }
-        in_memory:
-            users:
-                fabricio: { password: fabriciopass, roles: 'ROLE_USUARIO' }
+            entity: { class: Cupon\UsuarioBundle\Entity\Usuario, property: email }
+        #in_memory:
+        #    users:
+        #        fabricio: { password: fabriciopass, roles: 'ROLE_USUARIO' }
 
     firewalls:
         frontend:
             pattern: ^/
             anonymous: ~
+            provider: usuarios
             form_login:
                 login_path: /usuario/login
                 check_path: /usuario/login_check
@@ -33,3 +35,6 @@ security:
         - { path: ^/usuario/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/usuario/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/usuario/*, roles: ROLE_USUARIO }
+    
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_TIENDA, ROLE_USUARIO, ROLE_ALLOWED_TO_SWITCH]
