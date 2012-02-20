@@ -1,0 +1,23 @@
+{# src/Cupon/UsuarioBundle/Resources/views/Default/compras.html.twig #}
+
+{% extends '::frontend.html.twig' %}
+
+{% block title %}Ultimas ofertas que has comprado{% endblock %}
+
+{% block id 'compras' %}
+
+{% block article %}
+    <h1>{{ block('title') }}</h1>
+    
+    {% for compra in compras %}
+        {% include 'OfertaBundle:Default:includes/minioferta.html.twig' with { 
+            'oferta': compra.oferta,
+            'comprada': true,
+            'fechaCompra': compra.fecha 
+        } %}
+    {% endfor %}
+{% endblock %}
+
+{% block aside %}
+    {# ... #}
+{% endblock %}

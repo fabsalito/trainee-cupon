@@ -2,15 +2,16 @@
 
 namespace Cupon\UsuarioBundle\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Cupon\UsuarioBundle\Entity\Usuario
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Cupon\UsuarioBundle\Entity\UsuarioRepository")
  */
-class Usuario
+class Usuario implements UserInterface
 {
     /**
      * @var integer $id
@@ -101,6 +102,28 @@ class Usuario
     /** @ORM\ManyToOne(targetEntity="Cupon\CiudadBundle\Entity\Ciudad") */
     private $ciudad;
 
+    // compara si el usuario actual es igual a $usuario
+    function equals(\Symfony\Component\Security\Core\User\UserInterface $usuario)
+    {
+        return $this->getEmail() == $usuario->getEmail();
+    }
+    
+    // borra información del usuario
+    function eraseCredentials()
+    {
+    }
+    
+    // obtiene los roles del usuario
+    function getRoles()
+    {
+        return array('ROLE_USUARIO');
+    }
+    
+    // obtiene nombre de usuario
+    function getUsername()
+    {
+        return $this->getEmail();
+    }
 
     /**
      * Get id

@@ -1,3 +1,13 @@
-UsuarioBundle_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: UsuarioBundle:Default:index }
+usuario_compras:
+    pattern: /compras
+    defaults: { _controller: UsuarioBundle:Default:compras }
+
+usuario_login:
+        pattern: /login
+        defaults: { _controller: UsuarioBundle:Default:login }
+
+usuario_login_check:
+    pattern: /login_check
+
+usuario_logout:
+    pattern: /logout

@@ -1,0 +1,25 @@
+{# src/Cupon/UsuarioBunle/Resources/views/Default/login.html.twig #}
+
+{% extends '::frontend.html.twig' %}
+
+{% block title %}Formulario de acceso{% endblock %}
+
+{% block id 'usuario' %}
+
+{% block article %}
+    {% if error %}
+        <div>{{ error.message }}</div>
+    {% endif %}
+
+    <form action="{{ path('usuario_login_check') }}" method="post">
+        <label for="username">Usuario:</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="_password" />
+        
+        <input type="submit" name="login" value="Acceder" />
+    </form>
+{% endblock %}
+
+{% block aside %}{% endblock %}

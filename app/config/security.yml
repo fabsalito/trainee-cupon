@@ -1,54 +1,35 @@
 security:
-    acl:
-        connection: default
+    #acl:
+    #    connection: default
         
     encoders:
-        #Cupon\UsuarioBundle\Entity\Usuario: { algorithm: sha512, iterations: 10 }
-        #Cupon\TiendaBundle\Entity\Tienda: { algorithm: sha512, iterations: 10 }
-        Symfony\Component\Security\Core\User\User: sha512
-
-    role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        #Cupon\UsuarioBundle\Entity\Usuario: { algorithm: sha512, iterations:10 }
+        #Cupon\UsuarioBundle\Entity\Usuario: plaintext
+        Cupon\UsuarioBundle\Entity\Usuario:
+            algorithm: sha512
+            encode-as-base64: true
+            iterations: 10
+        #Symfony\Component\Security\Core\User\User:
+        #    algorithm: sha512
+        #    encode-as-base64: true
+        #    iterations: 10
 
     providers:
+        usuarios:
+            entity: { class: Cupon\UsuarioBundle\Entity\Usuario, property:email }
         in_memory:
             users:
-                user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
-        ## Usuarios del frontend
-        #usuarios:
-        #    entity: { class: Cupon\UsuarioBundle\Entity\Usuario, property: email }
-        ## Usuarios de la extranet
-        #tiendas:
-        #    entity: { class: Cupon\TiendaBundle\Entity\Tienda, property: login }
-        ## Usuarios del backend
-        #administradores:
-        #    users:
-        #        # user = admin, pass = 1234
-        #        admin: { password: Eti36Ru/pWG6WfoIPiDFUBxUuyvgMA4L8+LLuGbGyqV9ATuT9brCWPchBqX5vFTF+DgntacecW+sSGD+GZts2A==, roles: ROLE_ADMIN }
+                fabricio: { password: fabriciopass, roles: 'ROLE_USUARIO' }
 
     firewalls:
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
-        login:
-            pattern:  ^/demo/secured/login$
-            security: false
-
-        secured_area:
-            pattern:    ^/demo/secured/
+        frontend:
+            pattern: ^/
+            anonymous: ~
             form_login:
-                check_path: /demo/secured/login_check
-                login_path: /demo/secured/login
-            logout:
-                path:   /demo/secured/logout
-                target: /demo/
-            #anonymous: ~
-            #http_basic:
-            #    realm: "Secured Demo Area"
+                login_path: /usuario/login
+                check_path: /usuario/login_check
 
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        #- { path: ^/_internal, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+        - { path: ^/usuario/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/usuario/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/usuario/*, roles: ROLE_USUARIO }
