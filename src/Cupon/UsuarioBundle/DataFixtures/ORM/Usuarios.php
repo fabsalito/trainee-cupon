@@ -57,7 +57,7 @@ class Usuarios extends AbstractFixture implements OrderedFixtureInterface, Conta
             $passwordEnClaro = 'usuario'.$i;
             //$encoder = $this->container->get('security.encoder_factory')->getEncoder($usuario);
             //$passwordCodificado = $encoder->encodePassword($passwordEnClaro, $usuario->getSalt());
-            $passwordCodificado = $passwordEnClaro;
+            $passwordCodificado = $passwordEnClaro.'{'.$usuario->getSalt().'}';
             $usuario->setPassword($passwordCodificado);
             
             $usuario->setDireccion('Gran Vía, 1');

@@ -232,8 +232,8 @@ class Usuario implements UserInterface
      */
     public function getSalt()
     {
-        //return $this->salt; // se comenta debido a que no funciona con "plaintext"
-        return '';
+        return $this->salt; // se comenta debido a que no funciona con "plaintext"
+        //return '';
     }
 
     /**

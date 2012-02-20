@@ -11,7 +11,7 @@ class DefaultController extends Controller
     public function comprasAction()
     {
         // obtiene usuario logeado
-        $usuario_id = 1019;
+        $usuario_id = 1501;
 
         // obtiene entity manager
         $em = $this->getDoctrine()->getEntityManager();
