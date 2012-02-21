@@ -30,6 +30,11 @@ security:
             form_login:
                 login_path: /usuario/login
                 check_path: /usuario/login_check
+                #default_target_path: /usuario/compras
+                #always_use_default_target_path: true
+            remember_me:
+                key: cupon1234
+                lifetime: 3600
 
     access_control:
         - { path: ^/usuario/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

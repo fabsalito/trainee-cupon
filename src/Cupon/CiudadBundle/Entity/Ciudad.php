@@ -31,7 +31,7 @@ class Ciudad
     {
         $this->nombre = $nombre;
         // setea el nombre seguro
-        $this->slug = Util::getSlug($nombre);
+        $this->slug = Util::getSlug($nombre); //TODO: revisar como utilizar Util como servicio
     }
     
     public function getNombre()

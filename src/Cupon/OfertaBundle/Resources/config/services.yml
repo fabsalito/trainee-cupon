@@ -1,7 +1,12 @@
 parameters:
-#    oferta.example.class: Cupon\OfertaBundle\Example
+    cupon.codificacion: 'utf-8'
 
 services:
-#    oferta.example:
-#        class: %oferta.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    cupon.utilidades:
+        class: Cupon\OfertaBundle\Util\Util
+        calls:
+            - [ setCodificacion, [%cupon.codificacion%] ]
+        #arguments: [@logger, @router]
+        
+    util:
+        alias: cupon.utilidades
