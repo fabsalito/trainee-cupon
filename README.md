@@ -1,14 +1,17 @@
-Cupon (propio)
-==============
+Training (Cupon)
+================
 
-Bienvenidos a mi repositorio Cupon. Contiene la aplicación cupon que estoy 
-desarrollando basado en el libro de Javier Eguiluz: "Desarrollo Web Ágil con sf2".
+Repositorio utilizado en el entrenamiento con sf2 siguiendo el libro "Desarrollo Web Ágil con sf2" 
+[Javier Eguiluz - http://www.symfony.es].
 
-Iré subiendo las actualizaciones a medida que avance y también encontrarán los 
-issues con los cuales me fui encontrando y la solución de los mismos.
+El proyecto comenzó a realizarse con la versión 2.0.9 (estándar) de sf2 pero tengo como objetivo 
+mantener actualizado el framework y resolver, en caso de que existan, las incompatibilidades
+que aparezcan.
 
-Cabe aclarar que comencé el desarrollo de Cupon utilizando symfony 2.0.9 pero que
-trato de mantener actualizada la versión del framework y resolver las incompatibilidades
-(en caso de que existan)
+Junto al repositorio encontrarán los issues que fui encontrando a medida que avanzaba en el libro
+y, para los resueltos, un detalle claro de la solución en el wiki.
 
-Espero les sirva de ayuda a algunos.
+Trataré de mantener el repositorio, los issues y el wiki lo más actualizado posible.
+
+
+
