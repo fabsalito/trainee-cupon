@@ -30,6 +30,9 @@ security:
             form_login:
                 login_path: /usuario/login
                 check_path: /usuario/login_check
+            logout:
+                path: usuario_logout
+                target: /sitio/vuelve-pronto
                 #default_target_path: /usuario/compras
                 #always_use_default_target_path: true
             remember_me:

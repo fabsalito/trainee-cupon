@@ -10,8 +10,8 @@ class DefaultController extends Controller
     // compras del usuario
     public function comprasAction()
     {
-        // obtiene usuario logeado
-        $usuario_id = 1501;
+        // obtiene ID del usuario logeado
+        $usuario_id = $this->get('security.context')->getToken()->getUser()->getId();
 
         // obtiene entity manager
         $em = $this->getDoctrine()->getEntityManager();
@@ -59,11 +59,15 @@ class DefaultController extends Controller
         $error = $peticion->attributes->get(SecurityContext::AUTHENTICATION_ERROR,
             $sesion->get(SecurityContext::AUTHENTICATION_ERROR)
         );
+        
+        // obtiene usuario
+        $usuario = $this->get('security.context')->getToken()->getUser();
     
         // retorna respuesta
         return $this->render('UsuarioBundle:Default:cajaLogin.html.twig', array(
             'last_username' => $sesion->get(SecurityContext::LAST_USERNAME),
-            'error' => $error
+            'error' => $error,
+            'usuario' => $usuario
         ));
     }
 }
