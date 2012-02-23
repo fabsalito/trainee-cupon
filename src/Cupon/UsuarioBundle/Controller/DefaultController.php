@@ -4,9 +4,28 @@ namespace Cupon\UsuarioBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
+use Cupon\UsuarioBundle\Entity\Usuario;
 
 class DefaultController extends Controller
 {
+    // renderiza formulario de registro
+    public function registroAction()
+    {
+        // crea nuevo objeto usuario
+        $usuario = new Usuario();
+
+        // crea formulario
+        $formulario = $this->createFormBuilder($usuario)
+            ->add('nombre')
+            ->add('apellidos')
+            ->add('direccion', 'text')
+            ->add('fechaNacimiento', 'date')
+            ->getForm();
+
+        // retorna respuesta
+        return $this->render('UsuarioBundle:Default:registro.html.twig',array('formulario' => $formulario->createView()));
+    }
+
     // compras del usuario
     public function comprasAction()
     {

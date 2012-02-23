@@ -3,9 +3,9 @@ security:
         connection: default
         
     encoders:
-        #Cupon\UsuarioBundle\Entity\Usuario: { algorithm: sha512, iterations:10 }
-        Cupon\UsuarioBundle\Entity\Usuario: plaintext
-        Symfony\Component\Security\Core\User\User: plaintext
+        Cupon\UsuarioBundle\Entity\Usuario: { algorithm: sha512, iterations:10 }
+        #Cupon\UsuarioBundle\Entity\Usuario: plaintext
+        #Symfony\Component\Security\Core\User\User: plaintext
         #Cupon\UsuarioBundle\Entity\Usuario:
         #    algorithm: sha512
         #    encode-as-base64: true
@@ -38,6 +38,7 @@ security:
             remember_me:
                 key: cupon1234
                 lifetime: 3600
+            switch_user: { role: ROLE_ADMIN }
 
     access_control:
         - { path: ^/usuario/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

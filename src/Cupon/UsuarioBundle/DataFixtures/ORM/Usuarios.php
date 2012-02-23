@@ -53,11 +53,12 @@ class Usuarios extends AbstractFixture implements OrderedFixtureInterface, Conta
             $usuario->setEmail('usuario'.$i.'@localhost');
             
             $usuario->setSalt(md5(time()));
-            
             $passwordEnClaro = 'usuario'.$i;
-            //$encoder = $this->container->get('security.encoder_factory')->getEncoder($usuario);
-            //$passwordCodificado = $encoder->encodePassword($passwordEnClaro, $usuario->getSalt());
-            $passwordCodificado = $passwordEnClaro.'{'.$usuario->getSalt().'}';
+
+            $encoder = $this->container->get('security.encoder_factory')->getEncoder($usuario);
+
+            $passwordCodificado = $encoder->encodePassword($passwordEnClaro, $usuario->getSalt());
+            //$passwordCodificado = $passwordEnClaro.'{'.$usuario->getSalt().'}'; // esta es la codificación para "plaintext"
             $usuario->setPassword($passwordCodificado);
             
             $usuario->setDireccion('Gran Vía, 1');
