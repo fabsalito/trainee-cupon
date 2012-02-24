@@ -1,10 +1,10 @@
 usuario_compras:
     pattern: /compras
-    defaults: { _controller: UsuarioBundle:Default:compras }
+    defaults: { _controller: UsuarioBundle:Default:compras, _locale:es }
 
 usuario_login:
     pattern: /login
-    defaults: { _controller: UsuarioBundle:Default:login }
+    defaults: { _controller: UsuarioBundle:Default:login, _locale:es }
 
 usuario_login_check:
     pattern: /login_check
@@ -14,4 +14,4 @@ usuario_logout:
     
 usuario_registro:
     pattern: /registro
-    defaults: { _controller: UsuarioBundle:Default:registro }
+    defaults: { _controller: UsuarioBundle:Default:registro, _locale:es }

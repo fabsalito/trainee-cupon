@@ -23,7 +23,9 @@ class DefaultController extends Controller
             ->getForm();
 
         // retorna respuesta
-        return $this->render('UsuarioBundle:Default:registro.html.twig',array('formulario' => $formulario->createView()));
+        return $this->render('UsuarioBundle:Default:registro.html.twig',
+            array('formulario' => $formulario->createView())
+        );
     }
 
     // compras del usuario

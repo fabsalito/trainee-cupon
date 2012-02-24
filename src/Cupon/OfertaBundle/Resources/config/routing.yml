@@ -1,7 +1,7 @@
 pagina_estatica:
     pattern: /sitio/{pagina}/
-    defaults: { _controller: OfertaBundle:Sitio:estatica }
-
+    defaults: { _controller: OfertaBundle:Sitio:estatica, _locale:es }
+    
 #prueba:
     #pattern: /prueba
     #defaults: { _controller: OfertaBundle:Sitio:prueba }
@@ -9,14 +9,11 @@ pagina_estatica:
 # Ruta completa de la portada (con el slug de la ciudad)
 portada:
     pattern: /{ciudad}
-    defaults: { _controller: OfertaBundle:Default:portada, ciudad: null }
+    defaults: { _controller: OfertaBundle:Default:portada, ciudad: null, _locale:es }
 
-# Ruta simple de la portada
-_portada:
-    pattern: /
-    defaults: { _controller: OfertaBundle:Default:portada }
+
 
 # Ruta del detalle de oferta
 oferta:
     pattern: /{ciudad}/ofertas/{slug}
-    defaults: { _controller: OfertaBundle:Default:oferta }
+    defaults: { _controller: OfertaBundle:Default:oferta, _locale:es }

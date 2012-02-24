@@ -24,15 +24,15 @@ security:
 
     firewalls:
         frontend:
-            pattern: ^/
+            pattern: ^/*
             anonymous: ~
             provider: usuarios
             form_login:
-                login_path: /usuario/login
-                check_path: /usuario/login_check
+                login_path: usuario_login
+                check_path: usuario_login_check
             logout:
                 path: usuario_logout
-                target: /sitio/vuelve-pronto
+                #target: /sitio/vuelve-pronto
                 #default_target_path: /usuario/compras
                 #always_use_default_target_path: true
             remember_me:
@@ -41,9 +41,9 @@ security:
             switch_user: { role: ROLE_ADMIN }
 
     access_control:
-        - { path: ^/usuario/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/usuario/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/usuario/*, roles: ROLE_USUARIO }
+        - { path: ^/(es|en)/usuario/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(es|en)/usuario/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(es|en)/usuario/*, roles: ROLE_USUARIO }
     
     role_hierarchy:
         ROLE_ADMIN: [ROLE_TIENDA, ROLE_USUARIO, ROLE_ALLOWED_TO_SWITCH]
