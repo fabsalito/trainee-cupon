@@ -5,22 +5,71 @@ namespace Cupon\UsuarioBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Cupon\UsuarioBundle\Entity\Usuario;
+use Cupon\UsuarioBundle\Form\Frontend\UsuarioType;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class DefaultController extends Controller
 {
     // renderiza formulario de registro
     public function registroAction()
     {
+        // obtiene petición
+        $peticion = $this->getRequest();
+        
         // crea nuevo objeto usuario
         $usuario = new Usuario();
 
         // crea formulario
-        $formulario = $this->createFormBuilder($usuario)
-            ->add('nombre')
-            ->add('apellidos')
-            ->add('direccion', 'text')
-            ->add('fechaNacimiento', 'date')
-            ->getForm();
+        $formulario = $this->createForm(new UsuarioType(), $usuario);
+        
+        // valida y procesa datos de formulario si es requerido
+        if ($peticion->getMethod() == 'POST') {
+            // obtiene los datos de la petición y los asocia al formulario
+            $formulario->bindRequest($peticion);
+            
+            if ($formulario->isValid()) {
+                // obtiene enconder
+                $encoder = $this->get('security.encoder_factory')->getEncoder($usuario);
+
+                // setea salt para el usuario
+                $usuario->setSalt(md5(time()));
+
+                // define password con codificación
+                $passwordCodificado = $encoder->encodePassword(
+                    $usuario->getPassword(),
+                    $usuario->getSalt()
+                );
+
+                // setea password para el usuario
+                $usuario->setPassword($passwordCodificado);
+
+                // obtiene el entity manager
+                $em = $this->getDoctrine()->getEntityManager();
+
+                // persiste los datos para el usuario
+                $em->persist($usuario);
+
+                // almacena los datos en base de datos
+                $em->flush();
+                
+                // define mensaje flash a mostrar al usuario
+                $this->get('session')->setFlash('info','¡Enhorabuena! Te has registrado correctamente en Cupon');
+                
+                // define token
+                $token = new UsernamePasswordToken(
+                    $usuario,
+                    $usuario->getPassword(),
+                    'usuarios',
+                    $usuario->getRoles()
+                );
+
+                // setea token
+                $this->container->get('security.context')->setToken($token);
+
+                // redirecciona a la portada
+                return $this->redirect($this->generateUrl('portada', array('ciudad' => 'madrid')));
+            }
+        }
 
         // retorna respuesta
         return $this->render('UsuarioBundle:Default:registro.html.twig',

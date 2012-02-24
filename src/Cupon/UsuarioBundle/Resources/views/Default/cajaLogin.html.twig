@@ -1,11 +1,16 @@
 {# src/Cupon/UsuarioBundle/Resources/views/Default/cajaLogin.html.twig #}
 
+{% if app.session.hasFlash('info') %}
+    <p class="info">{{ app.session.getFlash('info') }}</p>
+{% endif %}
+    
 {% if is_granted('ROLE_USUARIO') %}
     <p>Conectado como {{ usuario.nombre ~ ' ' ~ usuario.apellidos }}</p>
     <a href="#">Ver mi perfil</a>
-    <a href="{{ path('usuario_logout') }}">Cerrar sesiÛn</a>
-{# el usuario todavÌa no ha hecho login #}
+    <a href="{{ path('usuario_logout') }}">Cerrar sesi√≥n</a>
+{# el usuario todav√≠a no ha hecho login #}
 {% else %}
+    <a class="boton" href="{{ path('usuario_registro') }}">Reg√≠strate</a>
 
     <h2>Accede a tu cuenta</h2>
 
@@ -17,12 +22,12 @@
         <label for="login_user">Email</label>
         <input id="login_user" type="text" name="_username" value="{{ last_username | default('') }}" />
         
-        <label for="login_pass">ContraseÒa</label>
+        <label for="login_pass">Contrase√±a</label>
         <input id="login_pass" type="password" name="_password" />
         
         <input type="submit" value="Entrar" />
         
         <input type="checkbox" id="remember_me" name="_remember_me" checked />
-        <label for="remember_me">No cerrar sesiÛn</label>
+        <label for="remember_me">No cerrar sesi√≥n</label>
     </form>
 {% endif %}
