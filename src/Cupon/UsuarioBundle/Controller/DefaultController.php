@@ -13,7 +13,7 @@ class DefaultController extends Controller
     // renderiza formulario de registro
     public function registroAction()
     {
-        // obtiene petici髇
+        // obtiene petici贸n
         $peticion = $this->getRequest();
         
         // crea nuevo objeto usuario
@@ -24,7 +24,7 @@ class DefaultController extends Controller
         
         // valida y procesa datos de formulario si es requerido
         if ($peticion->getMethod() == 'POST') {
-            // obtiene los datos de la petici髇 y los asocia al formulario
+            // obtiene los datos de la petici贸n y los asocia al formulario
             $formulario->bindRequest($peticion);
             
             if ($formulario->isValid()) {
@@ -34,7 +34,7 @@ class DefaultController extends Controller
                 // setea salt para el usuario
                 $usuario->setSalt(md5(time()));
 
-                // define password con codificaci髇
+                // define password con codificaci贸n
                 $passwordCodificado = $encoder->encodePassword(
                     $usuario->getPassword(),
                     $usuario->getSalt()
@@ -53,7 +53,7 @@ class DefaultController extends Controller
                 $em->flush();
                 
                 // define mensaje flash a mostrar al usuario
-                $this->get('session')->setFlash('info','nhorabuena! Te has registrado correctamente en Cupon');
+                $this->get('session')->setFlash('info','!Enhorabuena!, Te has registrado correctamente en Cupon');
                 
                 // define token
                 $token = new UsernamePasswordToken(
@@ -86,7 +86,7 @@ class DefaultController extends Controller
         // obtiene entity manager
         $em = $this->getDoctrine()->getEntityManager();
 
-        // obtiene las 鷏timas compras del usuario logeado
+        // obtiene las 煤ltimas compras del usuario logeado
         $compras = $em->getRepository('UsuarioBundle:Usuario')->findTodasLasCompras($usuario_id);
 
         // retorna respuesta
@@ -98,10 +98,10 @@ class DefaultController extends Controller
     // formulario login
     public function loginAction()
     {
-        // obtiene la petici髇
+        // obtiene la petici贸n
         $peticion = $this->getRequest();
         
-        // obtiene sesi髇
+        // obtiene sesi贸n
         $sesion = $peticion->getSession();
         
         // obtiene el error
@@ -119,10 +119,10 @@ class DefaultController extends Controller
     // (mini) formulario login
     public function cajaLoginAction()
     {
-        // obtiene la petici髇
+        // obtiene la petici贸n
         $peticion = $this->getRequest();
         
-        // obtiene sesi髇
+        // obtiene sesi贸n
         $sesion = $peticion->getSession();
         
         // obtiene el error
