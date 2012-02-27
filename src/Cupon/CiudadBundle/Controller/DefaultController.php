@@ -35,7 +35,7 @@ class DefaultController extends Controller
             );
     }
     
-    // devuelve la página de ofertas recientes
+    // devuelve la pÃ¡gina de ofertas recientes
     public function recientesAction($ciudad)
     {
         // obtiene el entity manager
@@ -44,7 +44,7 @@ class DefaultController extends Controller
         // obtiene ciudad
         $ciudad = $em->getRepository('CiudadBundle:Ciudad')->findOneBySlug($ciudad);
         
-        // lanza excepción en caso de que no exista la ciudad
+        // lanza excepciÃ³n en caso de que no exista la ciudad
         if (!$ciudad) {
             throw $this->createNotFoundException('No existe la ciudad');
         }
@@ -55,9 +55,12 @@ class DefaultController extends Controller
         // obtiene ofertas recientes
         $ofertas = $em->getRepository('OfertaBundle:Oferta')->findRecientes($ciudad->getId());
         
+        // obtiene formato de la peticiÃ³n 
+        $formato = $this->get('request')->getRequestFormat();
+        
         // retorna respuesta
         return $this->render(
-            'CiudadBundle:Default:recientes.html.twig',
+            'CiudadBundle:Default:recientes.'.$formato.'.twig',
             array('ciudad' => $ciudad,
                 'cercanas' => $cercanas,
                 'ofertas' => $ofertas,

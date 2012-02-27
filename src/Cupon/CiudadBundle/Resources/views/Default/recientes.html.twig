@@ -4,13 +4,17 @@
 
 {% block id 'recientes' %}
 
+{% block rss %}
+    <link rel="alternate" type="application/rss+xml" title="RSS de las ofertas más recientes en {{ ciudad.nombre }}" href="{{ path('ciudad_recientes', {'ciudad': ciudad.slug, '_format': 'rss' }) }}" />
+{% endblock %}
+
 {% block article %}
     <h1>Ofertas recientes en <strong>{{ ciudad.nombre }}</strong></h1>
     
     {% for oferta in ofertas %}
         {% include 'OfertaBundle:Default:includes/minioferta.html.twig' %}
     {% else %}
-        <p>Esta ciudad todav�a no ha publicado ninguna oferta</p>
+        <p>Esta ciudad todavía no ha publicado ninguna oferta</p>
     {% endfor %}
 {% endblock %}
 
@@ -22,7 +26,7 @@
         
         <ul>
             {% for ciudad in cercanas %}
-                <li><a href="{{ path('ciudad_recientes', { 'ciudad': ciudad.slug }) }}">{{ ciudad.nombre }}</a></li>
+                <li><a href="{{ path('ciudad_recientes', { 'ciudad': ciudad.slug, '_format':'html' }) }}">{{ ciudad.nombre }}</a></li>
             {% endfor %}
         </ul>
     </section>
