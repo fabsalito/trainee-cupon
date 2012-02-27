@@ -24,30 +24,46 @@ class DefaultController extends Controller
 
         // verifica si debe actualizar los datos
         if ($peticion->getMethod() == 'POST') {
+            // obtiene password original
+            $passwordOriginal = $formulario->getData()->getPassword();
+            
             // vuelca los datos de la petición en el formulario
             $formulario->bindRequest($peticion);
             
             // valida formulario
             if ($formulario->isValid()) {
-                $formulario->bindRequest($peticion);
-                if ($formulario->isValid()) {
-                    // obtiene entity manager
-                    $em = $this->getDoctrine()->getEntityManager();
-                    
-                    // persiste los datos del usuario
-                    $em->persist($usuario);
-                    
-                    // almacena datos de usuario en base de datos
-                    $em->flush();
-                    
-                    // crea mensaje flash
-                    $this->get('session')->setFlash('info',
-                        'Los datos de tu perfil se han actualizado correctamente'
-                    );
-                    
-                    // retorna respuesta
-                    return $this->redirect($this->generateUrl('usuario_perfil'));
+                // verifica si el usuario ha dejado la contraseña vacía (no quiere hacer cambio)
+                if (null == $usuario->getPassword()) {
+                    // setea el password original
+                    $usuario->setPassword($passwordOriginal);
                 }
+                else {
+                    // obtiene encoder de usuario
+                    $encoder = $this->get('security.encoder_factory')->getEncoder($usuario);
+                
+                    // codifica password
+                    $passwordCodificado = $encoder->encodePassword($usuario->getPassword(), $usuario->getSalt());
+                    
+                    // almacena password
+                    $usuario->setPassword($passwordCodificado);
+                }
+                    
+                // obtiene entity manager
+                $em = $this->getDoctrine()->getEntityManager();
+                        
+                // persiste los datos del usuario
+                $em->persist($usuario);
+                        
+                // almacena datos de usuario en base de datos
+                $em->flush();
+                        
+                // crea mensaje flash
+                $this->get('session')->setFlash('info',
+                    'Los datos de tu perfil se han actualizado correctamente'
+                );
+                        
+                // retorna respuesta
+                return $this->redirect($this->generateUrl('usuario_perfil'));
             }
         }
 
