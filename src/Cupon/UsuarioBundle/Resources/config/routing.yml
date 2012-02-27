@@ -15,3 +15,7 @@ usuario_logout:
 usuario_registro:
     pattern: /registro
     defaults: { _controller: UsuarioBundle:Default:registro, _locale:es }
+
+usuario_perfil:
+    pattern: /perfil
+    defaults: { _controller: UsuarioBundle:Default:perfil }

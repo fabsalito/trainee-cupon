@@ -10,6 +10,54 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class DefaultController extends Controller
 {
+    // página con perfil de usuario
+    public function perfilAction()
+    {
+        // obtiene el usuario logeado
+        $usuario = $this->get('security.context')->getToken()->getUser();
+        
+        // crea formulario
+        $formulario = $this->createForm(new UsuarioType(), $usuario);
+        
+        // obtiene petición
+        $peticion = $this->getRequest();
+
+        // verifica si debe actualizar los datos
+        if ($peticion->getMethod() == 'POST') {
+            // vuelca los datos de la petición en el formulario
+            $formulario->bindRequest($peticion);
+            
+            // valida formulario
+            if ($formulario->isValid()) {
+                $formulario->bindRequest($peticion);
+                if ($formulario->isValid()) {
+                    // obtiene entity manager
+                    $em = $this->getDoctrine()->getEntityManager();
+                    
+                    // persiste los datos del usuario
+                    $em->persist($usuario);
+                    
+                    // almacena datos de usuario en base de datos
+                    $em->flush();
+                    
+                    // crea mensaje flash
+                    $this->get('session')->setFlash('info',
+                        'Los datos de tu perfil se han actualizado correctamente'
+                    );
+                    
+                    // retorna respuesta
+                    return $this->redirect($this->generateUrl('usuario_perfil'));
+                }
+            }
+        }
+
+        // retorna respuesta
+        return $this->render('UsuarioBundle:Default:perfil.html.twig', array(
+            'usuario' => $usuario,
+            'formulario' => $formulario->createView()
+        ));
+    }
+    
     // renderiza formulario de registro
     public function registroAction()
     {

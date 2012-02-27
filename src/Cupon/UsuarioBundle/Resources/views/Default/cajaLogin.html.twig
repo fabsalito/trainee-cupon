@@ -6,7 +6,7 @@
     
 {% if is_granted('ROLE_USUARIO') %}
     <p>Conectado como {{ usuario.nombre ~ ' ' ~ usuario.apellidos }}</p>
-    <a href="#">Ver mi perfil</a>
+    <a href="{{ path('usuario_perfil') }}">Ver mi perfil</a>
     <a href="{{ path('usuario_logout') }}">Cerrar sesión</a>
 {# el usuario todavía no ha hecho login #}
 {% else %}
