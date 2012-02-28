@@ -24,6 +24,16 @@
                 <a href="{{ path('pagina_estatica', { 'pagina':'nosotros' }) }}">Sobre nosotros</a>
             </footer>
 
+            {% set locale = app.request.session.locale %}
+            
+            {% if locale == 'es' %}
+                <span>Español</span>
+                <a href="{{ path('portada', { '_locale': 'en' }) }}">English</a>
+            {% elseif locale == 'en' %}
+                <a href="{{ path('portada', { '_locale': 'es' }) }}">Español</a>
+                <span>English</span>
+            {% endif %}
+
             {% block javascripts %}{% endblock %}
         </div>
     </body>

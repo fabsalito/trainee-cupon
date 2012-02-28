@@ -1,9 +1,9 @@
 ciudad_cambiar:
     pattern: /ciudad/cambiar-a-{ciudad}
-    defaults: { _controller: CiudadBundle:Default:cambiar, _locale:es }
+    defaults: { _controller: CiudadBundle:Default:cambiar }
     
 ciudad_recientes:
     pattern: /{ciudad}/recientes.{_format}
-    defaults: { _controller: CiudadBundle:Default:recientes, _locale:es, _format:html }
+    defaults: { _controller: CiudadBundle:Default:recientes, _format:html }
     requirements:
         _format: html|rss
