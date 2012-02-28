@@ -10,3 +10,8 @@ services:
         
     util:
         alias: cupon.utilidades
+        
+    cupon.ofertabundle.listener.request:
+        class: Cupon\OfertaBundle\Listener\RequestListener
+        tags:
+             - { name: kernel.event_listener, event: kernel.request }

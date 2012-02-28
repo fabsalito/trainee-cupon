@@ -4,6 +4,10 @@
 
 {% block id 'tienda' %}
 
+{% block rss %}
+    <link rel="alternate" type="application/rss+xml" title="RSS de las ofertas más recientes de {{ tienda.nombre }}" href="{{ path('tienda_portada', { 'ciudad':tienda.ciudad.slug, 'tienda': tienda.slug, '_format': 'rss' }) }}" />
+{% endblock %}
+
 {% block article %}
     <section id="descripcion">
         <h1>{{ tienda.nombre }}</h1>

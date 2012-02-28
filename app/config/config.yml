@@ -4,6 +4,8 @@ imports:
     - { resource: services.yml }
     oferta_bundle:
         resource: @OfertaBundle/Resources/config/services.yml
+    usuario_bundle:
+        resource: @UsuarioBundle/Resources/config/services.yml
 
 framework:
     #esi:             ~

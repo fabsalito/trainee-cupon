@@ -34,8 +34,11 @@ class DefaultController extends Controller
         // obtiene otras ciudades
         $cercanas = $em->getRepository('TiendaBundle:Tienda')->findCercanas($tienda->getSlug(), $tienda->getCiudad()->getSlug());
         
+        // obtiene el formato de la consulta
+        $formato = $this->get('request')->getRequestFormat();
+        
         // retorna respuesta
-        return $this->render('TiendaBundle:Default:portada.html.twig', array(
+        return $this->render('TiendaBundle:Default:portada.'.$formato.'.twig', array(
             'tienda' => $tienda,
             'ofertas' => $ofertas,
             'cercanas' => $cercanas
