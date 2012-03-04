@@ -7,9 +7,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SitioController extends Controller
 {
+    // páginas estáticas
     public function estaticaAction($pagina)
     {
-        return $this->render('OfertaBundle:Sitio:'.$pagina.'.html.twig');
+        return $this->render(sprintf(
+            'OfertaBundle:Sitio:%s/%s.html.twig',
+            $this->getRequest()->getSession()->getLocale(),
+            $pagina
+        ));
     }
     
     // FUNCIÓN PARA PRUEBAS VARIAS. BORRAR!!!

@@ -1,0 +1,3 @@
+[submodule "vendor/bundles/BeSimple/I18nRoutingBundle"]
+	path = vendor/bundles/BeSimple/I18nRoutingBundle
+	url = git://github.com/BeSimple/BeSimpleI18nRoutingBundle.git

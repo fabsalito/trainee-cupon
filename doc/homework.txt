@@ -1,0 +1,27 @@
+--------------
+-- Homework --
+--------------
+- Instalar https://github.com/BeSimple/BeSimpleI18nRoutingBundle
+*git submodule add git://github.com/BeSimple/BeSimpleI18nRoutingBundle.git vendor/bundles/BeSimple/I18nRoutingBundle
+*Add I18nRoutingBundle to your application kernel
+*Register the BeSimple namespace
+*Update your configuration (app/config/config.yml)
+Correr php bin/vendors install
+Correr php app/console cache:clear
+- Internacionalizar rutas (con BeSimpleI18nRoutingBundle)
+- Borrar la base de datos (¡cuidado con este comando!)
+php app/console doctrine:database:drop --force
+- Crear la base de datos
+php app/console doctrine:database:create
+- Crear la estructura de tablas
+php app/console doctrine:schema:create
+- Cargar fixtures
+php app/console doctrine:fixtures:load
+- Corregir el bundle "DoctrineExtensionsBundle" de ser necesario
+En el archivo: /vendor/bundles/Stof/DoctrineExtensionsBundle/Listener/TranslationListener.php cambiar
+// Código original
+$this->setTranslatableLocale($event->getRequest()->getLocale());
+// Código correcto
+$this->setTranslatableLocale($event->getRequest()->getSession()->getLocale());
+- Actualizar sf2
+

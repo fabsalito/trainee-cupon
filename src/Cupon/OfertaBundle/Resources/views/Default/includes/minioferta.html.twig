@@ -16,7 +16,7 @@
             {% elseif not expirada %}
                 <strong>Faltan</strong>: {{ oferta.fechaExpiracion | cuenta_atras }}
             {% else %}
-                Finalizada el {{ oferta.fechaExpiracion | date() }}
+                Finalizada el {{ oferta.fechaExpiracion | fecha() }}
             {% endif %}
         </div>
     </div>

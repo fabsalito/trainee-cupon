@@ -1,6 +1,6 @@
 [symfony]
     git=http://github.com/symfony/symfony.git
-    version=v2.0.10
+    version=v2.0.11
 
 [twig]
     git=http://github.com/fabpot/Twig.git
@@ -69,6 +69,14 @@
     git=http://github.com/symfony/DoctrineFixturesBundle.git
     target=/bundles/Symfony/Bundle/DoctrineFixturesBundle
 
+[gedmo-doctrine-extensions]
+    git=http://github.com/l3pp4rd/DoctrineExtensions.git
+
+[Stof-DoctrineExtensionsBundle]
+    git=https://github.com/stof/StofDoctrineExtensionsBundle.git
+    target=/bundles/Stof/DoctrineExtensionsBundle
+
 [JMSDebuggingBundle]
     git=https://github.com/schmittjoh/JMSDebuggingBundle.git
     target=/bundles/JMS/DebuggingBundle
+

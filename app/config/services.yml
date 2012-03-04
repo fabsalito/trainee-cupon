@@ -11,6 +11,7 @@ services:
             
     twig.extension.cupon:
         class: Cupon\OfertaBundle\Twig\Extension\CuponExtension
+        arguments: [@translator]
         tags:
             - { name: twig.extension }
 

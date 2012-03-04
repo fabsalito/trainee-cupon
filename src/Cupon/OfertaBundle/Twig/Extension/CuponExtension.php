@@ -2,8 +2,26 @@
 
 namespace Cupon\OfertaBundle\Twig\Extension;
 
+use Symfony\Component\Translation\TranslatorInterface;
+
 class CuponExtension extends \Twig_Extension
 {
+    // servicio translator inyectado
+    private $translator;
+    
+    // ocnstructor
+    public function __construct(TranslatorInterface $translator)
+    {
+        // define translator
+        $this->translator = $translator;
+    }
+    
+    // obtiene translator
+    public function getTranslator()
+    {
+        return $this->translator;
+    }
+    
     // funciones de la extensión
     public function getFunctions()
     {
@@ -15,7 +33,36 @@ class CuponExtension extends \Twig_Extension
     {
         return array('mostrar_como_lista' => new \Twig_Filter_Method($this, 'mostrarComoLista', array('is_safe' => array('html'))),
             'cuenta_atras' => new \Twig_Filter_Method($this, 'cuentaAtras', array('is_safe' => array('html'))),
+            'fecha' => new \Twig_Filter_Method($this, 'fecha'),
             );
+    }
+    
+    // traduce fechas
+    public function fecha($fecha, $formatoFecha = 'medium', $formatoHora = 'none', $locale = null)
+    {
+        // Formatos: http://www.php.net/manual/en/class.intldateformatter.php
+        $formatos = array(
+            'none' => \IntlDateFormatter::NONE,
+            'short' => \IntlDateFormatter::SHORT,
+            'medium' => \IntlDateFormatter::MEDIUM,
+            'long' => \IntlDateFormatter::LONG,
+            'full' => \IntlDateFormatter::FULL,
+        );
+        
+        // formateador para fechas
+        $formateador = \IntlDateFormatter::create(
+            $locale != null ? $locale : $this->getTranslator()->getLocale(),
+            $formatos[$formatoFecha],
+            $formatos[$formatoHora]
+        );
+        
+        // verifica si fecha en instancia de DateTime
+        if ($fecha instanceof \DateTime) {
+            return $formateador->format($fecha);
+        }
+        else {
+            return $formateador->format(new \DateTime($fecha));
+        }
     }
     
     // cuenta regresiva

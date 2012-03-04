@@ -32,6 +32,7 @@ use Cupon\TiendaBundle\Entity\Tienda;
  */
 class Ofertas extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
+    // orden de carga
     public function getOrder()
     {
         return 30;
@@ -99,6 +100,25 @@ class Ofertas extends AbstractFixture implements OrderedFixtureInterface, Contai
                 $oferta->setTienda($tienda);
                 
                 $manager->persist($oferta);
+                $manager->flush();
+                
+                // Traducir los contenidos de la oferta al inglés
+                // obtiene ID de la oferta
+                $id = $oferta->getId();
+                
+                // busca la oferta por ID
+                $offer = $manager->find('OfertaBundle:Oferta', $id);
+                
+                // define el nombre en para nuevo idioma
+                $offer->setNombre('ENGLISH '.$oferta->getNombre());
+                
+                // define la descripcion para nuevo idioma
+                $offer->setDescripcion('ENGLISH '.$oferta->getDescripcion());
+                
+                // define el idioma de las traducciones
+                $offer->setTranslatableLocale('en');
+                
+                $manager->persist($offer);
                 $manager->flush();
                 
                 // Otorgar el permiso adecuado a cada oferta utilizando la ACL

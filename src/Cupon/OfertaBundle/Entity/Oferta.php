@@ -3,7 +3,10 @@
 namespace Cupon\OfertaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Cupon\OfertaBundle\Util\Util;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * Cupon\OfertaBundle\Entity\Oferta
@@ -24,8 +27,10 @@ class Oferta
 
     /**
      * @var string $nombre
-     *
+     * 
      * @ORM\Column(name="nombre", type="string", length=255)
+     * @Gedmo\Translatable
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -40,6 +45,9 @@ class Oferta
      * @var text $descripcion
      *
      * @ORM\Column(name="descripcion", type="text")
+     * @Gedmo\Translatable
+     * @Assert\NotBlank()
+     * @Assert\MinLength(30)
      */
     private $descripcion;
 
@@ -109,8 +117,18 @@ class Oferta
 
     /** @ORM\ManyToOne(targetEntity="Cupon\TiendaBundle\Entity\Tienda") */
     private $tienda;
+    
+    /**
+    * @Gedmo\Locale
+    */
+    private $locale;
 
-
+    // 
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+    
     /**
      * Get id
      *

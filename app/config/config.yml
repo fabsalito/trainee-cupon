@@ -4,8 +4,8 @@ imports:
     - { resource: services.yml }
     oferta_bundle:
         resource: @OfertaBundle/Resources/config/services.yml
-    usuario_bundle:
-        resource: @UsuarioBundle/Resources/config/services.yml
+    #usuario_bundle:
+        #resource: @UsuarioBundle/Resources/config/services.yml
 
 framework:
     #esi:             ~
@@ -72,6 +72,15 @@ jms_security_extra:
     # messages for public exceptions. If you leave this set to false, you have
     # to click the "search" button manually each time.
     #auto_help: false
-    
+
+stof_doctrine_extensions:
+    default_locale: es
+    translation_fallback: true
+    orm:
+        default:
+            translatable: true
+
 parameters:
     cupon.ciudad_por_defecto: 'barcelona'
+
+be_simple_i18n_routing: ~
