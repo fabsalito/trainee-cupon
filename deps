@@ -76,7 +76,4 @@
     git=https://github.com/stof/StofDoctrineExtensionsBundle.git
     target=/bundles/Stof/DoctrineExtensionsBundle
 
-[JMSDebuggingBundle]
-    git=https://github.com/schmittjoh/JMSDebuggingBundle.git
-    target=/bundles/JMS/DebuggingBundle
 
