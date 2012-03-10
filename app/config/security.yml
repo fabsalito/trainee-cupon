@@ -28,9 +28,9 @@ security:
             switch_user: { role: ROLE_ADMIN }
 
     access_control:
-        - { path: ^/[a-z]{2}/usuario/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/[a-z]{2}/usuario/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/[a-z]{2}/usuario/*, roles: ROLE_USUARIO }
+        - { path: '^/[a-z]{2}/usuario/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/[a-z]{2}/usuario/registro', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/[a-z]{2}/usuario/*', roles: ROLE_USUARIO }
     
     role_hierarchy:
         ROLE_ADMIN: [ROLE_TIENDA, ROLE_USUARIO, ROLE_ALLOWED_TO_SWITCH]
