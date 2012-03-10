@@ -55,22 +55,22 @@ class TwigExtensionTest extends \PHPUnit_Framework_TestCase
     // test para conversión a lista ul de saltos de línea
     public function testMostrarComoLista()
     {
-        //
+        // obtiene el path de los fixtures
         $fixtures = __DIR__.'/fixtures/lista';
         
-        //
+        // define una instancia de CuponExtension
         $extension = new CuponExtension();
         
-        //
+        // obtiene el original a utilizar (lista con \n)
         $original = file_get_contents($fixtures.'/original.txt');
         
-        //
+        // test para lista ul
         $this->assertEquals(
             file_get_contents($fixtures.'/esperado-ul.txt'),
             $extension->mostrarComoLista($original)
         );
         
-        //
+        // test para lista ol
         $this->assertEquals(
             file_get_contents($fixtures.'/esperado-ol.txt'),
             $extension->mostrarComoLista($original, 'ol')
