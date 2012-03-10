@@ -9,8 +9,8 @@ class CuponExtension extends \Twig_Extension
     // servicio translator inyectado
     private $translator;
     
-    // ocnstructor
-    public function __construct(TranslatorInterface $translator)
+    // constructor
+    public function __construct(TranslatorInterface $translator = null)
     {
         // define translator
         $this->translator = $translator;
