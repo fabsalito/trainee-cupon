@@ -30,7 +30,7 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            $bundles[] = new JMS\DebuggingBundle\JMSDebuggingBundle($this);
+            //$bundles[] = new JMS\DebuggingBundle\JMSDebuggingBundle($this);
         }
 
         return $bundles;
@@ -41,12 +41,12 @@ class AppKernel extends Kernel
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
     
-    protected function getContainerBaseClass()
-    {
-        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            return '\JMS\DebuggingBundle\DependencyInjection\TraceableContainer';
-        }
+    //protected function getContainerBaseClass()
+    //{
+    //    if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+    //        return '\JMS\DebuggingBundle\DependencyInjection\TraceableContainer';
+    //    }
 
-        return parent::getContainerBaseClass();
-    }
+    //    return parent::getContainerBaseClass();
+    //}
 }
