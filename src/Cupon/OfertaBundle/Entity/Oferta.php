@@ -69,6 +69,8 @@ class Oferta
      * @var decimal $precio
      *
      * @ORM\Column(name="precio", type="decimal")
+     *
+     * @Assert\Min(0)
      */
     private $precio;
     
@@ -81,6 +83,8 @@ class Oferta
      * @var datetime $fecha_publicacion
      *
      * @ORM\Column(name="fecha_publicacion", type="datetime")
+     *
+     * @Assert\DateTime
      */
     private $fecha_publicacion;
 
@@ -88,6 +92,8 @@ class Oferta
      * @var datetime $fecha_expiracion
      *
      * @ORM\Column(name="fecha_expiracion", type="datetime")
+     *
+     * @Assert\DateTime
      */
     private $fecha_expiracion;
 
@@ -102,6 +108,9 @@ class Oferta
      * @var integer $umbral
      *
      * @ORM\Column(name="umbral", type="integer")
+     *
+     * @Assert\Type(type="integer")
+     * @Assert\Min(0)
      */
     private $umbral;
 
@@ -109,6 +118,8 @@ class Oferta
      * @var boolean $revisada
      *
      * @ORM\Column(name="revisada", type="boolean")
+     *
+     * @Assert\Type(type="bool")
      */
     private $revisada;
 
@@ -117,6 +128,18 @@ class Oferta
 
     /** @ORM\ManyToOne(targetEntity="Cupon\TiendaBundle\Entity\Tienda") */
     private $tienda;
+
+    /**
+    * @Assert\True(message = "La fecha de expiración debe ser posterior a la fecha de publicación")
+    */
+    public function isFechaValida()
+    {
+        if ($this->fecha_publicacion == null || $this->fecha_expiracion == null) {
+            return true;
+        }
+        
+        return $this->fecha_expiracion > $this->fecha_publicacion;
+    }
     
     /**
     * @Gedmo\Locale
