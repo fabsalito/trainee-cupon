@@ -18,8 +18,8 @@ class UsuarioType extends AbstractType
             ->add('password', 'repeated', array(
                 'type' => 'password', 
                 'required' => false,
-                'invalid_message' => 'Las dos contraseñas deben coincidir', 
-                'options' => array('label' => 'Contraseña')
+                'invalid_message' => 'Las dos contraseï¿½as deben coincidir', 
+                'options' => array('label' => 'Contraseï¿½a')
             ))
             ->add('direccion')
             ->add('permite_email', 'checkbox', array('required' => false))
@@ -33,6 +33,6 @@ class UsuarioType extends AbstractType
     // identifica al formulario mediante el nombre
     public function getName()
     {
-        return 'cupon_usuariobundle_usuariotype';
+        return 'frontend_usuario';
     }
 }

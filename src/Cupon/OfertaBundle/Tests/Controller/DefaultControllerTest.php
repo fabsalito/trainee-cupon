@@ -124,5 +124,46 @@ class DefaultControllerTest extends WebTestCase
     //        'Después de pulsar el botón de comprar, el usuario anónimo ve el formulario de login'
     //    );
     //}
+
+    /** @test */
+    public function laPortadaRequierePocasConsultasDeBaseDeDatos()
+    {
+        // crea cliente
+        $client = static::createClient();
+
+        // realiza un GET sobre la portada (/)
+        $client->request('GET', '/');
+
+        // verifica que exista el profiler
+        if ($profiler = $client->getProfile()) {
+            // test: verifica que la portada requiere de menos de 4 consultas a base de datos
+            $this->assertLessThan(
+                4,
+                count($profiler->getCollector('db')->getQueries()),
+                'La portada requiere menos de 4 consultas a la base de datos'
+            );
+        }
+    }
+
+    /** @test */
+    public function laPortadaSeGeneraMuyRapido()
+    {
+        // crea cliente
+        $client = static::createClient();
+
+        // realiza un GET sobre la portada (/)
+        $client->request('GET', '/');
+
+        // verifica si existe el profiler
+        if ($profiler = $client->getProfile()) {
+            // test: verifica que el tiempo de generación de la portada es menos a 0.5 segundo
+            $this->assertLessThan(
+                0.5,
+                $profiler->getCollector('timer')->getTime(),
+                'La portada se genera en menos de medio segundo'
+            );
+        }
+    }
+
     // ...
 }
