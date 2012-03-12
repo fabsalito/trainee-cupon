@@ -10,6 +10,41 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class DefaultController extends Controller
 {
+    // baja de usuario
+    public function bajaAction()
+    {
+        // obtiene usuario
+        $usuario = $this->get('security.context')->getToken()->getUser();
+
+        // verifica si está logeado
+        if (null == $usuario ||!$this->get('security.context')->isGranted('ROLE_USUARIO')) {
+            $this->get('session')->setFlash('info',
+                'Para darte de baja primero tienes que conectarte.'
+            );
+
+            // redirije a la página de login        
+            return $this->redirect($this->generateUrl('usuario_login'));
+        }
+
+        // invalida la sesión
+        $this->get('request')->getSession()->invalidate();
+
+        // des-setea token
+        $this->get('security.context')->setToken(null);
+
+        // obtiene entity manager
+        $em = $this->getDoctrine()->getEntityManager();
+
+        // elimina usuario
+        $em->remove($usuario);
+
+        // persiste los datos
+        $em->flush();
+
+        // redirije a la portada
+        return $this->redirect($this->generateUrl('portada'));
+    }
+
     // página con perfil de usuario
     public function perfilAction()
     {
