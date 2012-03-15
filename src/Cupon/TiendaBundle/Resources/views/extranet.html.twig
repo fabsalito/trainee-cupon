@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('bundles/oferta/css/normalizar.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/oferta/css/comun.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/tienda/css/extranet.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body %}
+    <header>
+        <h1><a href="{{ path('extranet_portada') }}">CUPON EXTRANET</a></h1>
+
+        <nav>
+            <ul>
+                <li><a href="{{ path('extranet_portada') }}">Ofertas</a></li>
+                <li><a href="{{ path('extranet_perfil') }}">Mis datos</a></li>
+                <li><a href="#">Cerrar sesión</a></li>
+            </ul>
+        </nav>
+
+        <p>Teléfono de atención al cliente <strong>902 XXX XXX</strong></p>
+    </header>
+
+    <article>
+        {% block article %}{% endblock %}
+    </article>
+
+    <aside>
+        {% block aside %}
+            <a class="boton" href="{{ path('extranet_oferta_nueva') }}">Añadir oferta</a>
+            <section id="faq">
+                <h2>Preguntas frecuentes</h2>
+
+                <dl>
+                    <dt>¿Lorem ipsum dolor sit amet?</dt>
+                    <dd>Consectetur adipisicing elit, sed do eiusmod tempor.</dd>
+                    <dt>¿Ut enim ad minim veniam?</dt>
+                    <dd>Quis nostrud exercitation ullamco laboris nisi.</dd>
+                    <dt>¿Excepteur sint occaecat cupidatat non proident?</dt>
+
+                    <dd>Sunt in culpa qui officia deserunt mollit anim laborum.</dd>
+                </dl>
+            </section>
+        {% endblock %}
+    </aside>
+{% endblock %}
+

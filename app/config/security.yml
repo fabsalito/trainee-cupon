@@ -4,12 +4,26 @@ security:
         
     encoders:
         Cupon\UsuarioBundle\Entity\Usuario: { algorithm: sha512, iterations:10 }
+        Cupon\TiendaBundle\Entity\Tienda: { algorithm: sha512, iterations:10 }
 
     providers:
         usuarios:
             entity: { class: Cupon\UsuarioBundle\Entity\Usuario, property: email }
+        tiendas:
+            entity: { class: Cupon\TiendaBundle\Entity\Tienda, property: login }
 
     firewalls:
+        extranet:
+            pattern: ^/extranet
+            anonymous: ~            
+            provider: tiendas
+            form_login:
+                login_path: /extranet/login
+                check_path: /extranet/login_check
+            logout:
+                path: /extranet/logout
+                target: /extranet
+
         frontend:
             pattern: ^/*
             anonymous: ~
@@ -31,6 +45,8 @@ security:
         - { path: '^/[a-z]{2}/usuario/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^/[a-z]{2}/usuario/registro', roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^/[a-z]{2}/usuario/*', roles: ROLE_USUARIO }
+        - { path: '^/extranet/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/extranet/*', roles: ROLE_TIENDA }
     
     role_hierarchy:
         ROLE_ADMIN: [ROLE_TIENDA, ROLE_USUARIO, ROLE_ALLOWED_TO_SWITCH]

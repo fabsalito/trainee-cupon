@@ -58,10 +58,10 @@ class Tiendas extends AbstractFixture implements OrderedFixtureInterface, Contai
                 $tienda->setSalt(md5(time()));
                 
                 $passwordEnClaro = 'tienda'.$i;
-                //$security = $this->container->get('security.encoder_factory');
-                //$encoder = $security->getEncoder($tienda);
-                //$passwordCodificado = $encoder->encodePassword($passwordEnClaro, $tienda->getSalt());
-                $passwordCodificado = $passwordEnClaro;
+                $security = $this->container->get('security.encoder_factory');
+                $encoder = $security->getEncoder($tienda);
+                $passwordCodificado = $encoder->encodePassword($passwordEnClaro, $tienda->getSalt());
+                //$passwordCodificado = $passwordEnClaro;
                 $tienda->setPassword($passwordCodificado);
 
                 $tienda->setDescripcion($this->getDescripcion());

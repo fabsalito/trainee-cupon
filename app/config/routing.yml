@@ -10,6 +10,10 @@ TiendaBundle:
     requirements:
         _locale: en|es
 
+Extranet:
+    resource: "@TiendaBundle/Resources/config/extranet/routing.yml"
+    prefix: /extranet
+
 CiudadBundle:
     resource: "@CiudadBundle/Resources/config/routing.yml"
     prefix:   /{_locale}
