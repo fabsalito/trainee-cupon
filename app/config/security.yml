@@ -18,7 +18,7 @@ security:
             anonymous: ~            
             provider: tiendas
             form_login:
-                login_path: /extranet/login
+                login_path: extranet_login
                 check_path: /extranet/login_check
             logout:
                 path: /extranet/logout
