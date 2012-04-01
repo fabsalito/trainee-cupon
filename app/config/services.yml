@@ -1,4 +1,10 @@
 services:
+    twig.extension.cupon:
+        class: Cupon\OfertaBundle\Twig\Extension\CuponExtension
+        arguments: [@translator]
+        tags:
+            - { name: twig.extension }
+            
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
         tags:
@@ -9,10 +15,10 @@ services:
         tags:
             - { name: twig.extension }
             
-    twig.extension.cupon:
-        class: Cupon\OfertaBundle\Twig\Extension\CuponExtension
-        arguments: [@translator]
-        tags:
-            - { name: twig.extension }
+    #twig.extension.cupon:
+    #    class: Cupon\OfertaBundle\Twig\Extension\CuponExtension
+    #    arguments: [@translator]
+    #    tags:
+    #        - { name: twig.extension }
 
     

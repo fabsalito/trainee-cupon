@@ -2,10 +2,10 @@ imports:
     - { resource: parameters.ini }
     - { resource: security.yml }
     - { resource: services.yml }
-    oferta_bundle:
-        resource: @OfertaBundle/Resources/config/services.yml
-    usuario_bundle:
-        resource: @UsuarioBundle/Resources/config/services.yml
+    #oferta_bundle:
+    #    resource: @OfertaBundle/Resources/config/services.yml
+    #usuario_bundle:
+    #    resource: @UsuarioBundle/Resources/config/services.yml
 
 framework:
     #esi:             ~

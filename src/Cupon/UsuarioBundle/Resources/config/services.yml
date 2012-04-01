@@ -4,7 +4,7 @@ parameters:
 services:
     login_listener:
         class: Cupon\UsuarioBundle\Listener\LoginListener
-        arguments: [@router]
+        arguments: [@router, @security.context]
         tags:
             - { name: kernel.event_listener, event: security.interactive_login }
             - { name: kernel.event_listener, event: kernel.response }
