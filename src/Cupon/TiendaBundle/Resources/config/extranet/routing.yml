@@ -11,13 +11,13 @@ extranet_oferta_editar:
     defaults: { _controller: TiendaBundle:Extranet:ofertaEditar }
 
 extranet_oferta_ventas:
-    pattern: /oferta/ventas/{slug}
+    pattern: /oferta/ventas/{id}
     defaults: { _controller: TiendaBundle:Extranet:ofertaVentas }
 
 extranet_perfil:
     pattern: /perfil
     defaults: { _controller: TiendaBundle:Extranet:perfil }
-    
+
 # Ruta para la acción de login de la extranet
 extranet_login:
     pattern: /login
@@ -30,3 +30,4 @@ extranet_login_check:
 # Ruta para la acción de logout de la extranet
 extranet_logout:
     pattern: /logout
+

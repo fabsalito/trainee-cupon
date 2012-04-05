@@ -1,7 +1,7 @@
 security:
     acl:
         connection: default
-        
+
     encoders:
         Cupon\UsuarioBundle\Entity\Usuario: { algorithm: sha512, iterations:10 }
         Cupon\TiendaBundle\Entity\Tienda: { algorithm: sha512, iterations:10 }
@@ -15,7 +15,7 @@ security:
     firewalls:
         extranet:
             pattern: ^/extranet
-            anonymous: ~            
+            anonymous: ~
             provider: tiendas
             form_login:
                 login_path: extranet_login
@@ -47,6 +47,7 @@ security:
         - { path: '^/[a-z]{2}/usuario/*', roles: ROLE_USUARIO }
         - { path: '^/extranet/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^/extranet/*', roles: ROLE_TIENDA }
-    
+
     role_hierarchy:
         ROLE_ADMIN: [ROLE_TIENDA, ROLE_USUARIO, ROLE_ALLOWED_TO_SWITCH]
+

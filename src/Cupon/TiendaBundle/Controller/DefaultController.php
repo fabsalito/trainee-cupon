@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
+
 class DefaultController extends Controller
 {
     
@@ -24,7 +25,7 @@ class DefaultController extends Controller
         
         // verifica si existe tienda
         if (!$tienda) {
-            // lanza excepción en caso de que no exista
+            // lanza excepciï¿½n en caso de que no exista
             throw $this->createNotFoundException('No existe esta tienda');
         }
         
