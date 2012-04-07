@@ -4,9 +4,72 @@ namespace Cupon\TiendaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
+use Cupon\TiendaBundle\Form\Extranet\TiendaType;
 
 class ExtranetController extends Controller
 {
+    // perfil de la tienda
+    public function perfilAction()
+    {
+        // obtiene petición
+        $peticion = $this->getRequest();
+
+        // crea objeto a relacionar con formulario
+        $tienda = $this->get('security.context')->getToken()->getUser();
+
+        // crea formulario
+        $formulario = $this->createForm(new TiendaType(), $tienda);
+
+        // verifica método de llamada
+        if ('POST' == $peticion->getMethod()) {
+            // guarda contraseña original
+            $passwordOriginal = $tienda->getPassword();
+
+            // bindea los datos de la petición
+            $formulario->bindRequest($peticion);
+
+            // valida formulario
+            if ($formulario->isValid()) {
+                // procesa password
+                if (null == $tienda->getPassword()){
+                    // almacena password original
+                    $tienda->setPassword($passwordOriginal);
+                }
+                else {
+                    // obtiene encoder
+                    $encoder = $this->get('security.encoder_factory')->getEncoder($tienda);
+                    // codifica password
+                    $passwordCodificado = $encoder->encodePassword(
+                        $tienda->getPassword(),
+                        $tienda->getSalt()
+                    );
+                    // almacena nuevo password
+                    $tienda->setPassword($passwordCodificado);
+
+                }
+
+                // obtiene entity manager
+                $em = $this->getDoctrine()->getEntityManager();
+
+                $em->persist($tienda);
+
+                $em->flush();
+
+                $this->get('session')->setFlash('info',
+                    'Los datos de tu perfil se han actualizado correctamente'
+                );
+
+               // redirecciona
+               return $this->redirect($this->generateUrl('extranet_portada'));
+            }
+        }
+
+        return $this->render('TiendaBundle:Extranet:perfil.html.twig', array(
+                'tienda' => $tienda,
+                'formulario' => $formulario->createView()
+        ));
+    }
+
     // controlador para el listado de ventas para una ofertaVentasAction
     public function ofertaVentasAction ($id) {
         // obtiene entity manager

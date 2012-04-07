@@ -8,27 +8,27 @@ class CuponExtension extends \Twig_Extension
 {
     // servicio translator inyectado
     private $translator;
-    
+
     // constructor
     public function __construct(TranslatorInterface $translator = null)
     {
         // define translator
         $this->translator = $translator;
     }
-    
+
     // obtiene translator
     public function getTranslator()
     {
         return $this->translator;
     }
-    
-    // funciones de la extensión
+
+    // funciones de la extensiÃ³n
     public function getFunctions()
     {
         return array('descuento' => new \Twig_Function_Method($this, 'descuento'));
     }
-    
-    // filtros de la extensión
+
+    // filtros de la extensiÃ³n
     public function getFilters()
     {
         return array('mostrar_como_lista' => new \Twig_Filter_Method($this, 'mostrarComoLista', array('is_safe' => array('html'))),
@@ -36,7 +36,7 @@ class CuponExtension extends \Twig_Extension
             'fecha' => new \Twig_Filter_Method($this, 'fecha'),
             );
     }
-    
+
     // traduce fechas
     public function fecha($fecha, $formatoFecha = 'medium', $formatoHora = 'none', $locale = null)
     {
@@ -48,23 +48,24 @@ class CuponExtension extends \Twig_Extension
             'long' => \IntlDateFormatter::LONG,
             'full' => \IntlDateFormatter::FULL,
         );
-        
+
         // formateador para fechas
         $formateador = \IntlDateFormatter::create(
             $locale != null ? $locale : $this->getTranslator()->getLocale(),
             $formatos[$formatoFecha],
             $formatos[$formatoHora]
         );
-        
+
         // verifica si fecha en instancia de DateTime
         if ($fecha instanceof \DateTime) {
-            return $formateador->format($fecha);
+            return $formateador->format($fecha->getTimestamp());
         }
         else {
-            return $formateador->format(new \DateTime($fecha));
+            $fechaDatetime = new \DateTime($fecha);
+            return $formateador->format($fechaDatetime->getTimestamp());
         }
     }
-    
+
     // cuenta regresiva
     public function cuentaAtras($fecha)
     {
@@ -78,12 +79,12 @@ class CuponExtension extends \Twig_Extension
             'minuto' => $fecha->format('i'),
             'segundo' => $fecha->format('s')
         ));
-        
+
         $idAleatorio = 'cuenta-atras-'.rand(1, 100000);
-        
+
         $html = <<<EOJ
             <span id="$idAleatorio"></span>
-            
+
             <script type="text/javascript">
                 window.addEventListener('load', function(){
                     var expira = $fecha;
@@ -94,37 +95,38 @@ EOJ;
 
         return $html;
     }
-    
+
     // muestra un texto como lista <li></li>
     public function mostrarComoLista($value, $tipo='ul')
     {
         $html = "<".$tipo.">\n";
         $html .= " <li>".str_replace("\n", "</li>\n <li>", $value)."</li>\n";
         $html .= "</".$tipo.">\n";
-        
+
         return $html;
     }
-    
+
     // muestra descuento porcentual
     public function descuento($precio, $descuento, $decimales = 0)
     {
         if (!is_numeric($precio) || !is_numeric($descuento)) {
             return '-';
         }
-        
+
         if ($descuento == 0 || $descuento == null) {
             return '0%';
         }
-    
+
         $precio_original = $precio + $descuento;
         $porcentaje = ($descuento / $precio_original) * 100;
-    
+
         return '-'.number_format($porcentaje, $decimales).'%';
     }
-    
-    // nombre de la extensión
+
+    // nombre de la extensiÃ³n
     public function getName()
     {
         return 'cupon';
     }
 }
+

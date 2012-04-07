@@ -29,8 +29,8 @@
             {#<td>{{ oferta.revisada ? 'si' : 'no' }}</td>#}
             <td>{{ oferta.revisada ? '&#10004;' : '&#10008;' }}</td>
             {% if oferta.revisada %}
-                <td>{{ oferta.fechaPublicacion | fecha('medium', 'short') }}</td>
-                <td>{{ oferta.fechaExpiracion | fecha('medium', 'short') }}</td>
+                <td>{{ oferta.fechaPublicacion | fecha('long', 'medium') }}</td>
+                <td>{{ oferta.fechaExpiracion | fecha('long', 'medium') }}</td>
             {% else %}
                 <td colspan="2">Pendiente de revisión</td>
             {% endif %}

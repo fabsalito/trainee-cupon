@@ -1,6 +1,6 @@
 {# src/Cupon/TiendaBundle/Resources/views/Extranet/ventas.html.twig #}
 
-{% extends '::extranet.html.twig' %}
+{% extends 'TiendaBundle::extranet.html.twig' %}
 
 {% block id 'oferta' %}
 
@@ -23,6 +23,7 @@
                 <td>{{ venta.usuario.dni }}</td>
                 <td>{{ venta.usuario.nombre ~ ' ' ~ venta.usuario.apellidos }}</td>
                 <td>{{ venta.fecha | fecha('long', 'medium') }}</td>
+                {#<td>{{ venta.fecha | date('Y-m-d') }}</td>#}
             </tr>
             {% endfor %}
             <tr>
